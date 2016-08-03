@@ -1,6 +1,8 @@
 RespondToDig
 ===
 
+[![Build Status](https://travis-ci.org/announce/respond_to_dig.svg?branch=master)](https://travis-ci.org/announce/respond_to_dig)
+
 This gem backports Array#dig and Hash#dig methods from Ruby 2.3+ to earlier versions of Ruby, only if you explicitly call it.
 
 ## vs RubyDig
