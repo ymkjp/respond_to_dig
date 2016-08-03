@@ -27,7 +27,7 @@ Or install it yourself as:
 
 ## Usage
 
-```
+```rb
 require 'respond_to_dig'
 
 response = RespondToDig::respond_to_dig({
