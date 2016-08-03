@@ -7,7 +7,7 @@ This gem backports Array#dig and Hash#dig methods from Ruby 2.3+ to earlier vers
 
 ## vs [RubyDig](https://github.com/Invoca/ruby_dig)
 * RubyDig has side-effects, but RespondToDig doesn't.
-* RespondToDig only supports Array and Hash, but RespondToDig supports any `Enumerable` classes which have `[]` method.
+* RespondToDig only supports `Array` and `Hash`, but RespondToDig supports any `Enumerable` classes which have `[]` method such as `Struct`.
 
 ## Installation
 
