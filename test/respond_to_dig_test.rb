@@ -25,6 +25,10 @@ class RespondToDigTest
     let (:a_nested_hash) {
       RespondToDig::respond_to_dig({mom: {first: "Marge", last: "Bouvier"}, dad: {first: "Homer", last: "Simpson"}})
     }
+    let (:containing_diggable) {
+      Dog = Struct.new(:name, :age)
+      RespondToDig::respond_to_dig({dogs: [Dog.new("Fred", 5), Dog.new("Harry", 2)]})
+    }
 
     describe "Array" do
       it "digs an array by index" do
@@ -45,10 +49,6 @@ class RespondToDigTest
 
       it "raises TypeError when dig index not an integer" do
         assert_raises(TypeError) { an_array.dig(:four) }
-      end
-
-      it "digs into any object that implements dig" do
-        assert_equal [:a, :b], RespondToDig::respond_to_dig([0, Diggable.new]).dig(1, :a, :b)
       end
 
       it "returns the value false" do
@@ -82,11 +82,20 @@ class RespondToDigTest
       end
     end
 
-    describe "Nested Hash and Array" do
-      it "navigates both" do
-        assert_equal 'Lisa', RespondToDig::respond_to_dig({mom: {first: "Marge", last: "Bouvier"},
-                              dad: {first: "Homer", last: "Simpson"},
-                              kids: [{first: "Bart"}, {first: "Lisa"}]}).dig(:kids, 1, :first)
+    describe "Various classes" do
+      it "navigates both nested Hash and Array" do
+        assert_equal 'Lisa', RespondToDig::respond_to_dig(
+          {mom: {first: "Marge", last: "Bouvier"},
+           dad: {first: "Homer", last: "Simpson"},
+           kids: [{first: "Bart"}, {first: "Lisa"}]}).dig(:kids, 1, :first)
+      end
+
+      it "digs into any object that implements dig" do
+        assert_equal [:a, :b], RespondToDig::respond_to_dig([0, Diggable.new]).dig(1, :a, :b)
+      end
+
+      it "digs into any Enumerable object that implements #[]" do
+        assert_equal 'Harry', RespondToDig::respond_to_dig(containing_diggable).dig(:dogs, 1, :name)
       end
     end
   end
