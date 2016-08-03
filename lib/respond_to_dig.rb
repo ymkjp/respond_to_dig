@@ -1,15 +1,18 @@
 module RespondToDig
-  RESPONDERS = [Array, Hash]
 
   class << self
     def respond_to_dig(receiver)
       receiver.tap do |r|
-        r.singleton_class.send(:include, RespondToDig) if RespondToDig.target? r
+        r.singleton_class.send(:include, RespondToDig) if RespondToDig.diggable? r
       end
     end
 
-    def target?(target)
-      not respond_to? :dig and RESPONDERS.any? {|klass| target.is_a? klass}
+    # The reason why not purely duck typed by `[]` method is to avoid unexpected behavior,
+    # for example we won't get `'o'` by `'foo'.dig(1)` by String#[].
+    def diggable?(target)
+      target.is_a? Enumerable and
+          target.respond_to? :[] and
+          not target.respond_to? :dig
     end
   end
 
