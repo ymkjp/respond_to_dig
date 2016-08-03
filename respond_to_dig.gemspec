@@ -6,9 +6,9 @@ require 'respond_to_dig/version'
 Gem::Specification.new do |spec|
   spec.name          = "respond_to_dig"
   spec.version       = RespondToDig::VERSION
-  spec.authors       = ["@ymkjp"]
+  spec.authors       = ["ymkjp"]
   spec.email         = ["ymkjp@jaist.ac.jp"]
-  spec.summary       = %q{Pure Ruby implementation of Array#dig and Hash#dig for Ruby < 2.3.}
+  spec.summary       = %q{Explicit backporting of Array#dig and Hash#dig for Ruby < 2.3.}
   spec.homepage      = "https://github.com/announce/respond_to_dig"
   spec.license       = "MIT"
 
