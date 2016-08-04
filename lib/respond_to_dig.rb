@@ -1,12 +1,12 @@
 # Extracts the nested value specified by the sequence of index by calling dig at each step,
 # returning nil if any intermediate step is nil.
 # @example
-#   h = RespondToDig::respond_to_dig({ foo: {bar: {baz: 1 }}})
+#   h = RespondToDig::invoke_dig({ foo: {bar: {baz: 1 }}})
 #   h.dig(:foo, :bar, :baz)           #=> 1
 #   h.dig(:foo, :zot, :xyz)           #=> nil
 #   h.dig(:foo, :bar, :baz, :xyz)     #=> TypeError
 #
-#   g = RespondToDig::respond_to_dig({ foo: [10, 11, 12] })
+#   g = RespondToDig::invoke_dig({ foo: [10, 11, 12] })
 #   g.dig(:foo, 1)                    #=> 11
 module RespondToDig
 
@@ -31,6 +31,8 @@ module RespondToDig
           target.respond_to? :[] and
           not target.respond_to? :dig
     end
+
+    alias_method :invoke_dig, :respond_to_dig
   end
 
   # Retrieves the value object corresponding to the each `key` objects recursively with nil-safe

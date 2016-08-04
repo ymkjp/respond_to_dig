@@ -99,4 +99,10 @@ class RespondToDigTest
       end
     end
   end
+
+  describe "Alias" do
+    it 'alias #invoke_dig' do
+      assert_equal RespondToDig::respond_to_dig({}), RespondToDig::invoke_dig({})
+    end
+  end
 end
